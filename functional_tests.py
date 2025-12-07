@@ -53,16 +53,30 @@ class NewVisitorTest(unittest.TestCase):
 
         inputbox.send_keys('Buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(3)
 
         table = self.browser.find_element(By.ID, 'id_list_table')
         rows = table.find_elements(By.TAG_NAME, 'tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows),
-            "New to-do item did not appear in table"
-        )
-        self.fail('Finish the test')
+        self.assertIn('1:Buy peacock feathers', [row.text for row in rows])
 
+        # Ainda continua havendo uma caixa de texto convidando-a a acrescentar
+        # outro item. Ela insere "Use peacock feathers to make a fly"
+        # (Usar penas de pavão para fazer um fly – Edith é bem metódica)
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        # A página é atualizada novamente e agora mostra os dois itens em sua lista
+        table = self.browser.find_element(By.ID, 'id_list_table')
+        rows = table.find_elements(By.TAG_NAME, 'tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn(
+            '2: Use peacock feathers to make a fly',
+            [row.text for row in rows]
+        )
+
+        self.fail('Finish the test')
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
