@@ -133,9 +133,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertIn('Buy milk', page_text)
 
-        # Satisfeitos, ambos voltam a dormir
-        # self.fail('Finish the test')
-
     def test_layout_and_styling(self):
         # Edith acessa a página inicial
         self.browser.get(self.live_server_url)
@@ -143,21 +140,19 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Ela percebe que a caixa de entrada está elegantemente centralizada
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
-
-        # Ela inicia uma nova lista e vê que a entrada está elegantemente
-        # centralizada aí também
         inputbox.send_keys('testing')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1:testing')
-        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element_by_id('id_new_item')
 
-        time.sleep(3)
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
             delta=10
         )
 
+        # Satisfeitos, ambos voltam a dormir
+        self.fail('Finish the test')
 
 # if __name__ == '__main__':
 #     unittest.main(warnings='ignore')
