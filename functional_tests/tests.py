@@ -19,7 +19,7 @@ import time
 
 # Set your actual, correct path here
 
-MAX_WAIT = 10
+MAX_WAIT = 4
 
 
 class NewVisitorTest(LiveServerTestCase):
@@ -121,7 +121,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: Buy milk')
+        self.wait_for_row_in_list_table('1:Buy milk')
 
         # Francis obtém seu próprio URL exclusivo
         francis_list_url = self.browser.current_url
