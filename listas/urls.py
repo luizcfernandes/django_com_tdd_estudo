@@ -16,11 +16,10 @@ Including another URLconf
 """
 
 from listas import views
-from django.urls import re_path, include
-from listas import urls as list_urls
-
+from django.urls import re_path
 
 urlpatterns = [
-    re_path(r'^$', views.home_page, name='home'),
-    re_path(r'^lists/', include(list_urls))
+    re_path(r'^new$', views.new_list, name="new_list"),
+    re_path(r'^(\d+)/$', views.view_list, name='view_list'),
+    re_path(r'^(\d+)/add_item$', views.add_item, name='add_item')
 ]
