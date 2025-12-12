@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 import time
 
@@ -22,7 +22,7 @@ import time
 MAX_WAIT = 4
 
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         CHROME_BINARY_LOCATION = "/usr/bin/google-chrome"
@@ -142,8 +142,8 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
         inputbox.send_keys('testing')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: testing')
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.wait_for_row_in_list_table('1:testing')
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
 
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
