@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from listas.models import Item, List
 from django.utils.html import escape
 
+
 class HomePageTest(TestCase):
 
     # def test_home_page_returns_correct_html(self):
@@ -84,7 +85,7 @@ class ListViewTest(TestCase):
         correct_list = List.objects.create()
 
         self.client.post(
-            f'/lists/{correct_list.id}/add_item',
+            f'/lists/{correct_list.id}/',
             data={'item_text': 'A new item for an existing list'}
         )
 
@@ -98,7 +99,7 @@ class ListViewTest(TestCase):
         correct_list = List.objects.create()
 
         response = self.client.post(
-            f'/lists/{correct_list.id}/add_item',
+            f'/lists/{correct_list.id}/',
             data={'item_text': 'A new item for an existing list'}
         )
 
