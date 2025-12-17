@@ -40,8 +40,8 @@ class ItemValidationTest(FunctionalTest):
         # E ela pode corrigir isso preenchendo o item com um texto
         self.browser.find_element(By.ID, 'id_new_item').send_keys('Make tea')
         self.browser.find_element(By.ID, 'id_new_item').send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: Buy milk')
-        self.wait_for_row_in_list_table('2: Make tea')
+        self.wait_for_row_in_list_table('1:Buy milk')
+        self.wait_for_row_in_list_table('2:Make tea')
 
         self.fail('Finish the test')
 
