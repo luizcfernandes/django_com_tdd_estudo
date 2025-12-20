@@ -3,7 +3,6 @@ from django.http import HttpRequest
 from django.utils.html import escape
 
 from listas.models import Item, List
-from listas.forms import ItemForm
 from listas.forms import ItemForm, EMPTY_ITEM_ERROR
 
 
@@ -117,18 +116,13 @@ class ListViewTest(TestCase):
         self.assertEqual(response.context['list'], correct_list)
 
     def test_can_save_a_POST_request_to_an_existing_list(self):
-        other_list = List.objects.create()
+        # other_list = List.objects.create()
         correct_list = List.objects.create()
 
         get_item_text(self,
                       req='text',
                       resp='A new item for an existing list',
-                      url=f'/lists/{correct_list.id}/'
-                    )
-        # self.client.post(
-        #     f'/lists/{correct_list.id}/',
-        #     data={'item_text': 'A new item for an existing list'}
-        # )
+                      url=f'/lists/{correct_list.id}/')
 
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
