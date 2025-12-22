@@ -5,6 +5,8 @@ from django.utils.html import escape
 from listas.models import Item, List
 from listas.forms import ItemForm, EMPTY_ITEM_ERROR
 
+from unittest import skip
+
 
 def get_item_text(self, resp='', req='text', url='/lists/new'):
     return self.client.post(url, data={req: resp})
@@ -156,4 +158,16 @@ class ListViewTest(TestCase):
         response = self.post_invalid_input()
         self.assertContains(response, escape(EMPTY_ITEM_ERROR))
 
+    # @skip('to be implemented later')
+    def test_duplicate_item_validation_errors_end_up_on_lists_page(self):
+        list1 = List.objects.create()
+        item1 = Item.objects.create(list=list1, text='textey')
+        response = get_item_text(self,
+                                 req='text',
+                                 resp='textey',
+                                 url=f'/lists/{list1.id}/')
+        # expected_error = escape("You've already got this in your list")
+        # self.assertContains(response, expected_error)
+        # self.assertTemplateUsed(response, 'list.html')
+        # self.assertEqual(Item.objects.all().count(), 1)
 
