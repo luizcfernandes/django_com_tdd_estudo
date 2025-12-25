@@ -50,10 +50,12 @@ class ItemValidationTest(FunctionalTest):
 
         # Ela tenta acidentalmente inserir um item duplicadoself.get_item_input_box().send_keys('Buy wellies')
         self.get_item_input_box().send_keys(Keys.ENTER)
+
         # Ela vê uma mensagem de erro prestativa
         self.wait_for(lambda: self.assertEqual(
-             self.browser.find_element(By.CSS_SELECTOR, '.has-error').text,
-             "You've already got this in your list"))
+            self.browser.find_element(By.CSS_SELECTOR, '.has-error').text,
+            "You've already got this in your list"
+        ))
         self.fail('Finish the test')
 
 
